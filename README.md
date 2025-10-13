@@ -18,7 +18,7 @@ I created this script because I was tired of constantly monitoring Facebook mark
 
 1. **Clone or download this project**
    ```bash
-   cd /Users/gquach/Projects/board_notifier
+   cd to/your/file/path
    ```
 
 2. **Install Python dependencies**
