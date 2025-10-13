@@ -1,0 +1,26 @@
+# Location settings
+LOCATION=San Diego, CA
+RADIUS=25
+
+# Price range
+MIN_PRICE=0
+MAX_PRICE=2000
+
+# Monitoring settings
+CHECK_INTERVAL=300
+MAX_RESULTS=50
+
+# Notification settings
+ENABLE_DESKTOP_NOTIFICATIONS=true
+ENABLE_EMAIL_NOTIFICATIONS=false
+
+# Email settings (if email notifications are enabled)
+EMAIL_SMTP_SERVER=smtp.gmail.com
+EMAIL_SMTP_PORT=587
+EMAIL_USERNAME=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+EMAIL_TO=your_email@gmail.com
+
+# Logging
+LOG_LEVEL=INFO
+LOG_FILE=surfboard_monitor.log
