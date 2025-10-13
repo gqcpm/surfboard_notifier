@@ -2,6 +2,8 @@
 
 A Python script that monitors Facebook Marketplace and OfferUp for new surfboard listings containing "mov" in the description and sends notifications when matches are found.
 
+I created this script because I was tired of constantly monitoring Facebook marketplace and offerup for good deals on used boards, so I created this script to do it for me.
+
 ## Features
 
 - 🔍 Monitors Facebook Marketplace and OfferUp
