@@ -4,6 +4,8 @@ A Python script that monitors Craigslist for new surfboard listings and uses Gem
 
 Attempted to do it on marketplace and offerup, but ran into issues with bot detectors.
 
+I created this script because I was tired of constantly monitoring Facebook marketplace and offerup for good deals on used boards, so I created this script to do it for me. The idea behind looking for "mov" in the description is that the script would catch posts where people are moving as I noticed that those ones are often a better deal because they are usually trying to just get rid of things as I had seen for that Rob Stewart 9'0 pristine condition, including fins, leash, board bag for $300 😭.
+
 ## Features
 
 - 🔍 Monitors Craigslist for surfboard listings
@@ -19,7 +21,7 @@ Attempted to do it on marketplace and offerup, but ran into issues with bot dete
 
 1. **Clone or download this project**
    ```bash
-   cd /Users/gquach/Projects/board_notifier
+   cd to/your/file/path
    ```
 
 2. **Install Python dependencies**
