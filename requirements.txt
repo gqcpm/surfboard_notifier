@@ -7,3 +7,4 @@ python-dotenv==1.0.0
 lxml==4.9.3
 fake-useragent==1.4.0
 webdriver-manager==4.0.1
+google-genai==1.33.0

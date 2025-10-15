@@ -58,3 +58,6 @@ chromedriver.exe
 # Temporary files
 *.tmp
 *.temp
+
+# Timestamp tracking
+last_check_timestamp.json

@@ -40,3 +40,7 @@ class Config:
     
     # User agent for web scraping
     USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    
+    # Gemini API settings
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+    ENABLE_GEMINI_FILTERING = os.getenv("ENABLE_GEMINI_FILTERING", "true").lower() == "true"

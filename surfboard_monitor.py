@@ -8,8 +8,9 @@ import time
 import schedule
 from datetime import datetime
 from config import Config
-from marketplace_scraper import MarketplaceScraper
+from craigslist_scraper import CraigslistScraper
 from notifier import Notifier
+from gemini_classifier import GeminiClassifier
 
 def setup_logging():
     """Setup logging configuration."""
@@ -30,18 +31,29 @@ def check_for_new_listings():
     logger.info("Starting surfboard listing check...")
     
     try:
-        scraper = MarketplaceScraper()
+        scraper = CraigslistScraper()
         notifier = Notifier()
+        classifier = GeminiClassifier()
         
         # Get new listings
-        new_listings = scraper.get_new_listings()
+        raw_listings = scraper.get_new_listings()
         
-        if new_listings:
-            logger.info(f"Found {len(new_listings)} new surfboard listings with 'mov' keyword")
+        if raw_listings:
+            logger.info(f"Found {len(raw_listings)} raw surfboard listings")
             
-            for listing in new_listings:
-                logger.info(f"New listing: {listing.get('title', 'Unknown')} - {listing.get('price', 'N/A')}")
-                notifier.notify_new_listing(listing)
+            # Filter with Gemini AI for midlength/longboard
+            new_listings = classifier.classify_listings(raw_listings)
+            
+            if new_listings:
+                logger.info(f"After Gemini filtering: {len(new_listings)} longboard surfboards")
+                
+                for listing in new_listings:
+                    logger.info(f"New listing: {listing.get('title', 'Unknown')} - {listing.get('price', 'N/A')}")
+                    notifier.notify_new_listing(listing)
+            else:
+                logger.info("No longboard surfboards found after AI filtering")
+                if Config().ENABLE_GEMINI_FILTERING:
+                    logger.info("This is expected behavior - AI is working correctly to filter out non-longboard items")
         else:
             logger.info("No new surfboard listings found")
     
@@ -55,13 +67,15 @@ def main():
     
     config = Config()
     
-    logger.info("🏄 Surfboard Monitor Started")
+    logger.info("🏄 Surfboard Monitor Started (Craigslist + Gemini AI)")
     logger.info(f"Search terms: {config.SEARCH_TERMS}")
     logger.info(f"Description keyword: {config.DESCRIPTION_KEYWORD}")
     logger.info(f"Location: {config.LOCATION}")
     logger.info(f"Check interval: {config.CHECK_INTERVAL} seconds")
     logger.info(f"Desktop notifications: {config.ENABLE_DESKTOP_NOTIFICATIONS}")
     logger.info(f"Email notifications: {config.ENABLE_EMAIL_NOTIFICATIONS}")
+    logger.info(f"Gemini AI filtering: {config.ENABLE_GEMINI_FILTERING}")
+    logger.info(f"Gemini API key configured: {'Yes' if config.GEMINI_API_KEY else 'No'}")
     
     # Run initial check
     check_for_new_listings()

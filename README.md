@@ -1,11 +1,14 @@
 # 🏄 Surfboard Monitor
 
-A Python script that monitors Facebook Marketplace and OfferUp for new surfboard listings containing "mov" in the description and sends notifications when matches are found.
+A Python script that monitors Craigslist for new surfboard listings and uses Gemini AI to filter for midlength and longboard surfboards, sending notifications when matches are found.
+
+Attempted to do it on marketplace and offerup, but ran into issues with bot detectors.
 
 ## Features
 
-- 🔍 Monitors Facebook Marketplace and OfferUp
-- 🎯 Filters for surfboards with "mov" in description
+- 🔍 Monitors Craigslist for surfboard listings
+- 🤖 AI-powered filtering with Gemini AI (midlength/longboard only)
+- 🎯 Optional "mov" keyword filtering
 - 🔔 Desktop notifications (macOS, Windows, Linux)
 - 📧 Email notifications (optional)
 - ⏰ Configurable check intervals
@@ -24,11 +27,16 @@ A Python script that monitors Facebook Marketplace and OfferUp for new surfboard
    pip install -r requirements.txt
    ```
 
-3. **Install Chrome browser** (required for web scraping)
+3. **Get Gemini API key** (for AI filtering)
+   - Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - Create a new API key
+   - Copy the key for configuration
+
+4. **Install Chrome browser** (required for web scraping)
    - Download and install Chrome if not already installed
    - The script will automatically download ChromeDriver
 
-4. **Configure settings**
+5. **Configure settings**
    ```bash
    cp env_example.txt .env
    ```
@@ -49,7 +57,21 @@ A Python script that monitors Facebook Marketplace and OfferUp for new surfboard
    # Notification settings
    ENABLE_DESKTOP_NOTIFICATIONS=true
    ENABLE_EMAIL_NOTIFICATIONS=false
+   
+   # Gemini AI settings
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ENABLE_GEMINI_FILTERING=true
    ```
+
+## AI Processing
+
+**Intelligent AI Filtering**: The system uses advanced batch processing with strict filtering:
+
+- **Single API call**: All listings processed together for maximum efficiency
+- **Strict classification**: Only 7-8ft midlength and 8ft+ longboard surfboards
+- **Safety filters**: Additional keyword filtering for routers, wetsuits, clothing, etc.
+- **Smart filtering**: 6ft boards, shortboards, and non-surfboard items are filtered out
+- **Error handling**: Returns empty list if AI fails (no spam notifications)
 
 ## Usage
 
