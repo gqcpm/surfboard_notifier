@@ -2,15 +2,17 @@
 
 A Python script that monitors Craigslist for new surfboard listings and uses Gemini AI to filter for midlength and longboard surfboards, sending notifications when matches are found.
 
-Attempted to do it on marketplace and offerup, but ran into issues with bot detectors.
+Attempted to do it on marketplace and offerup, but ran into many issues with bot detectors.
 
-I created this script because I was tired of constantly monitoring Facebook marketplace and offerup for good deals on used boards, so I created this script to do it for me. The idea behind looking for "mov" in the description is that the script would catch posts where people are moving as I noticed that those ones are often a better deal because they are usually trying to just get rid of things as I had seen for that Rob Stewart 9'0 pristine condition, including fins, leash, board bag for $300 😭.
+I created this script because I was tired of constantly monitoring Facebook Marketplace and OfferUp for good deals on used surfboards. I created this script to stop the repetitiveness of opening these secondhand used apps and websites for me. I was inspired  to create this project after missing out on a few good deals that were gone within an hour . . . I'm not looking at these postings every hour . . . thats too time consuming and boring as hell. 😭
+
+Now you're probably wondering where AI comes into this project, assuming you've read this far into the README (finally, thank god someone got to read this 🙏). After all, I could have just stopped at filtering and search terms. A big problem with surfboard postings is that people typically are looking for a certain kind of board, like shortboards, midlengths, or longboards . . . in my case, I was looking for longboards. The issue with this is that many postings have only the title "surfboard" on them, making them extremely generic and not specific enough unless you want to scroll through thousands of postings. In this, we use AI to help alleviate that issue by categorizing the boards based on their sizes and relevancy (was also getting a ton of other surf gear and somehow routers) and essentially spamming me with bs that no one actually wants to see. I used AI to help filter these out by looking at the descriptions of such items and picking out only the ones that were truly relevant to what I wanted. 
 
 ## Features
 
 - 🔍 Monitors Craigslist for surfboard listings
 - 🤖 AI-powered filtering with Gemini AI (midlength/longboard only)
-- 🎯 Optional "mov" keyword filtering
+- 🎯 Optional keyword filtering
 - 🔔 Desktop notifications (macOS, Windows, Linux)
 - 📧 Email notifications (optional)
 - ⏰ Configurable check intervals
