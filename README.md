@@ -2,11 +2,17 @@
 
 A professional Python package that monitors Craigslist for new surfboard listings and uses Gemini AI to filter for midlength and longboard surfboards, sending notifications when matches are found.
 
+## Background
+
+This project was created to solve the problem of constantly monitoring marketplace websites for good surfboard deals. After missing out on several great deals that were gone within hours, I built this automated solution to stop the repetitive manual checking.
+
+The AI filtering component addresses a key challenge: many surfboard listings have generic titles like "surfboard" without specifying the type (shortboard, midlength, longboard). This package uses Gemini AI to categorize boards by size and filter out irrelevant items like wetsuits, accessories, and other gear, ensuring you only get notified about boards that match your preferences.
+
 ## Features
 
 - 🔍 Monitors Craigslist for surfboard listings
 - 🤖 AI-powered filtering with Gemini AI (midlength/longboard only)
-- 🎯 Optional "mov" keyword filtering
+- 🎯 Optional keyword filtering
 - 🔔 Desktop notifications (macOS, Windows, Linux)
 - 📧 Email notifications (optional)
 - ⏰ Configurable check intervals
