@@ -1,10 +1,6 @@
 # 🏄 Surfboard Monitor
 
-A Python script that monitors Craigslist for new surfboard listings and uses Gemini AI to filter for midlength and longboard surfboards, sending notifications when matches are found.
-
-Attempted to do it on marketplace and offerup, but ran into issues with bot detectors.
-
-I created this script because I was tired of constantly monitoring Facebook marketplace and offerup for good deals on used boards, so I created this script to do it for me. The idea behind looking for "mov" in the description is that the script would catch posts where people are moving as I noticed that those ones are often a better deal because they are usually trying to just get rid of things as I had seen for that Rob Stewart 9'0 pristine condition, including fins, leash, board bag for $300 😭.
+A professional Python package that monitors Craigslist for new surfboard listings and uses Gemini AI to filter for midlength and longboard surfboards, sending notifications when matches are found.
 
 ## Features
 
@@ -16,29 +12,52 @@ I created this script because I was tired of constantly monitoring Facebook mark
 - ⏰ Configurable check intervals
 - 📝 Comprehensive logging
 - 🛡️ Duplicate detection to avoid spam
+- 🏗️ Professional package structure with proper testing
 
 ## Installation
 
-1. **Clone or download this project**
+### Option 1: Install as Package (Recommended)
+
+1. **Clone the repository**
    ```bash
-   cd to/your/file/path
+   git clone https://github.com/yourusername/surfboard-monitor.git
+   cd surfboard-monitor
    ```
 
-2. **Install Python dependencies**
+2. **Install in development mode**
+   ```bash
+   pip install -e .
+   ```
+
+3. **Or install with development dependencies**
+   ```bash
+   pip install -e ".[dev]"
+   ```
+
+### Option 2: Direct Installation
+
+1. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Get Gemini API key** (for AI filtering)
+2. **Run from source**
+   ```bash
+   python src/main.py
+   ```
+
+## Configuration
+
+1. **Get Gemini API key** (for AI filtering)
    - Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
    - Create a new API key
    - Copy the key for configuration
 
-4. **Install Chrome browser** (required for web scraping)
+2. **Install Chrome browser** (required for web scraping)
    - Download and install Chrome if not already installed
    - The script will automatically download ChromeDriver
 
-5. **Configure settings**
+3. **Configure settings**
    ```bash
    cp env_example.txt .env
    ```
@@ -65,6 +84,76 @@ I created this script because I was tired of constantly monitoring Facebook mark
    ENABLE_GEMINI_FILTERING=true
    ```
 
+## Usage
+
+### As a Package
+
+```bash
+# Run the monitor
+surfboard-monitor
+
+# Or using Python module
+python -m surfboard_monitor
+```
+
+### As a Script
+
+```bash
+# Run the main script
+python src/main.py
+
+# Or run the legacy script
+python scripts/legacy_surfboard_monitor.py
+```
+
+### Programmatic Usage
+
+```python
+from surfboard_monitor import SurfboardMonitor
+
+# Create and run monitor
+monitor = SurfboardMonitor()
+monitor.run()
+```
+
+## Project Structure
+
+```
+surfboard-monitor/
+├── src/
+│   ├── surfboard_monitor/          # Main package
+│   │   ├── __init__.py
+│   │   ├── config.py              # Configuration management
+│   │   ├── core/                  # Core monitoring functionality
+│   │   │   ├── __init__.py
+│   │   │   └── monitor.py         # Main monitor class
+│   │   ├── scrapers/              # Web scraping modules
+│   │   │   ├── __init__.py
+│   │   │   └── craigslist_scraper.py
+│   │   ├── ai/                    # AI classification
+│   │   │   ├── __init__.py
+│   │   │   └── gemini_classifier.py
+│   │   └── notifications/         # Notification systems
+│   │       ├── __init__.py
+│   │       └── notifier.py
+│   └── main.py                    # Entry point
+├── tests/                         # Test suite
+│   ├── __init__.py
+│   ├── test_basic.py
+│   ├── unit/                      # Unit tests
+│   ├── integration/               # Integration tests
+│   └── fixtures/                  # Test fixtures
+├── scripts/                       # Utility scripts
+│   └── legacy_surfboard_monitor.py
+├── docs/                          # Documentation
+├── requirements.txt               # Dependencies
+├── setup.py                      # Package setup
+├── pyproject.toml                 # Modern Python packaging
+├── .gitignore                     # Git ignore rules
+├── env_example.txt                # Environment template
+└── README.md                      # This file
+```
+
 ## AI Processing
 
 **Intelligent AI Filtering**: The system uses advanced batch processing with strict filtering:
@@ -75,19 +164,46 @@ I created this script because I was tired of constantly monitoring Facebook mark
 - **Smart filtering**: 6ft boards, shortboards, and non-surfboard items are filtered out
 - **Error handling**: Returns empty list if AI fails (no spam notifications)
 
-## Usage
+## Development
 
-### Basic Usage
+### Setup Development Environment
+
 ```bash
-python surfboard_monitor.py
+# Clone repository
+git clone https://github.com/yourusername/surfboard-monitor.git
+cd surfboard-monitor
+
+# Install in development mode with dev dependencies
+pip install -e ".[dev]"
+
+# Install pre-commit hooks
+pre-commit install
 ```
 
-### With Custom Configuration
+### Running Tests
+
 ```bash
-# Set environment variables
-export LOCATION="Los Angeles, CA"
-export CHECK_INTERVAL=600  # 10 minutes
-python surfboard_monitor.py
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=surfboard_monitor
+
+# Run specific test file
+pytest tests/test_basic.py
+```
+
+### Code Quality
+
+```bash
+# Format code
+black src/ tests/
+
+# Lint code
+flake8 src/ tests/
+
+# Type checking
+mypy src/
 ```
 
 ## Configuration Options
@@ -122,11 +238,12 @@ EMAIL_TO=your_email@gmail.com
 
 ## How It Works
 
-1. **Search**: The script searches Facebook Marketplace and OfferUp for surfboard listings
+1. **Search**: The script searches Craigslist for surfboard listings
 2. **Filter**: Only listings containing "mov" in the title or description are considered
 3. **Track**: Duplicate listings are filtered out using unique identifiers
-4. **Notify**: New matches trigger desktop and/or email notifications
-5. **Log**: All activity is logged to `surfboard_monitor.log`
+4. **Classify**: AI filters listings to only include longboards/midlengths
+5. **Notify**: New matches trigger desktop and/or email notifications
+6. **Log**: All activity is logged to `surfboard_monitor.log`
 
 ## Search Terms
 
@@ -155,8 +272,8 @@ Title: Custom Surfboard with Mov
 Price: $450
 Location: San Diego, CA
 Description: Description not available in preview
-Platform: Facebook Marketplace
-URL: https://facebook.com/marketplace/item/...
+Platform: Craigslist
+URL: https://sfbay.craigslist.org/...
 ```
 
 ## Troubleshooting
@@ -188,7 +305,7 @@ tail -f surfboard_monitor.log
 
 ## Legal Notice
 
-This script is for personal use only. Please respect the terms of service of Facebook Marketplace and OfferUp. The script includes delays between requests to be respectful to the platforms.
+This script is for personal use only. Please respect the terms of service of Craigslist. The script includes delays between requests to be respectful to the platforms.
 
 ## Requirements
 
@@ -208,3 +325,26 @@ This script is for personal use only. Please respect the terms of service of Fac
 - `lxml` - XML/HTML processing
 - `fake-useragent` - User agent rotation
 - `webdriver-manager` - ChromeDriver management
+- `google-genai` - Gemini AI integration
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Changelog
+
+### v1.0.0
+- Initial release with professional package structure
+- Craigslist scraping functionality
+- Gemini AI integration for surfboard classification
+- Desktop and email notifications
+- Comprehensive logging and error handling
+- Full test suite and development tools

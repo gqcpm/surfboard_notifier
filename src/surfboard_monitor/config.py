@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
+    """Configuration class for surfboard monitor settings."""
+    
     # Search parameters
     SEARCH_TERMS = ["surfboard", "surf board", "surfing board"]
     DESCRIPTION_KEYWORD = "mov"  # Must contain this word in description

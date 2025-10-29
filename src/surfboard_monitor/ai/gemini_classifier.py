@@ -5,11 +5,13 @@ Gemini AI classifier for surfboard type detection.
 import logging
 from google import genai
 from google.genai import errors
-from config import Config
+from ..config import Config
 
 logger = logging.getLogger(__name__)
 
 class GeminiClassifier:
+    """AI classifier for filtering surfboard listings using Gemini AI."""
+    
     def __init__(self):
         self.config = Config()
         self.client = None

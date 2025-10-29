@@ -7,11 +7,13 @@ import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from plyer import notification
-from config import Config
+from ..config import Config
 
 logger = logging.getLogger(__name__)
 
 class Notifier:
+    """Handles desktop and email notifications for surfboard listings."""
+    
     def __init__(self):
         self.config = Config()
     

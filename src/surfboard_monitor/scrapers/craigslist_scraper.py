@@ -10,11 +10,13 @@ import os
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlencode
-from config import Config
+from ..config import Config
 
 logger = logging.getLogger(__name__)
 
 class CraigslistScraper:
+    """Scraper for Craigslist surfboard listings."""
+    
     def __init__(self):
         self.config = Config()
         self.seen_listings = set()  # Track seen listings to avoid duplicates
