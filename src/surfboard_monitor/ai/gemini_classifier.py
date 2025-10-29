@@ -6,6 +6,7 @@ import logging
 from google import genai
 from google.genai import errors
 from ..config import Config
+from .prompts import CLASSIFICATION_PROMPT_TEMPLATE, LISTING_FORMAT_TEMPLATE
 
 logger = logging.getLogger(__name__)
 
@@ -39,39 +40,17 @@ class GeminiClassifier:
             # Build a comprehensive prompt with all listings
             listings_text = ""
             for i, listing in enumerate(listings, 1):
-                title = listing.get('title', '')
-                description = listing.get('description', '')
-                price = listing.get('price', '')
-                listings_text += f"""
-{i}. Title: {title}
-   Description: {description}
-   Price: {price}
-"""
+                listings_text += LISTING_FORMAT_TEMPLATE.format(
+                    i=i,
+                    title=listing.get('title', ''),
+                    description=listing.get('description', ''),
+                    price=listing.get('price', '')
+                )
             
-            prompt = f"""
-Analyze these surfboard listings and classify each one as MIDLENGTH, LONGBOARD, SHORTBOARD, or OTHER.
-
-{listings_text}
-
-Classification criteria:
-- LONGBOARD: 8 feet and longer, typically 9-10+ feet, designed for cruising and noseriding. Includes noserider, log, and traditional longboards. Must be 8ft+ OR explicitly described as noserider/longboard
-- MIDLENGTH: 7-8 feet, hybrid between shortboard and longboard, good for intermediate surfers  
-- SHORTBOARD: Under 7 feet, high-performance boards for advanced surfers. Includes 5'7", 5'8", 5'9", 5'10", 5'11", 6'0", 6'1", 6'2" boards
-- OTHER: Wetsuits, accessories, non-surfboard items, routers, modems, clothing, or unclear descriptions
-
-IMPORTANT: 
-- 6ft and under boards are SHORTBOARD, NOT longboard
-- 5'7", 5'8", 5'9", 5'10", 5'11" are all SHORTBOARD
-- Routers, modems, wetsuits, clothing = OTHER
-- Noserider boards = LONGBOARD (they are longboards)
-- Only keep LONGBOARD (8ft+ or noserider)
-- Be strict about length requirements
-
-Respond with ONLY the classification for each listing in order, separated by newlines:
-1. [CLASSIFICATION]
-2. [CLASSIFICATION]
-etc.
-"""
+            # Format the classification prompt with listings
+            prompt = CLASSIFICATION_PROMPT_TEMPLATE.format(
+                listings_text=listings_text
+            )
             
             logger.info(f"Classifying {len(listings)} listings in batch with Gemini AI")
             response = self.client.models.generate_content(
