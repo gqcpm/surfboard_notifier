@@ -107,9 +107,6 @@ python -m surfboard_monitor
 ```bash
 # Run the main script
 python src/main.py
-
-# Or run the legacy script
-python scripts/legacy_surfboard_monitor.py
 ```
 
 ### Programmatic Usage
@@ -138,7 +135,8 @@ surfboard-monitor/
 │   │   │   └── craigslist_scraper.py
 │   │   ├── ai/                    # AI classification
 │   │   │   ├── __init__.py
-│   │   │   └── gemini_classifier.py
+│   │   │   ├── gemini_classifier.py
+│   │   │   └── prompts.py         # AI prompt templates
 │   │   └── notifications/         # Notification systems
 │   │       ├── __init__.py
 │   │       └── notifier.py
@@ -149,8 +147,6 @@ surfboard-monitor/
 │   ├── unit/                      # Unit tests
 │   ├── integration/               # Integration tests
 │   └── fixtures/                  # Test fixtures
-├── scripts/                       # Utility scripts
-│   └── legacy_surfboard_monitor.py
 ├── docs/                          # Documentation
 ├── requirements.txt               # Dependencies
 ├── setup.py                      # Package setup
@@ -169,6 +165,7 @@ surfboard-monitor/
 - **Safety filters**: Additional keyword filtering for routers, wetsuits, clothing, etc.
 - **Smart filtering**: 6ft boards, shortboards, and non-surfboard items are filtered out
 - **Error handling**: Returns empty list if AI fails (no spam notifications)
+- **Maintainable prompts**: AI prompts are stored separately in `prompts.py` for easy customization
 
 ## Development
 
@@ -354,3 +351,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Desktop and email notifications
 - Comprehensive logging and error handling
 - Full test suite and development tools
+- AI prompts separated into dedicated file for easier customization and maintenance
